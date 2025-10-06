@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday Thank You</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        height: 100vh;
+        overflow: hidden;
+        background: linear-gradient(
+          135deg,
+          #fbc2eb,
+          #a6c1ee
+        ); /* 🌈 smooth pastel gradient */
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        text-align: center;
+        transition: background 1s ease-in-out;
+      }
+
+      /* main text */
+      .main-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        z-index: 5;
+        width: 90%;
+      }
+
+      h1 {
+        font-size: 3rem;
+        text-transform: uppercase;
+        animation: glow 2s infinite alternate;
+        margin-bottom: 10px;
+        line-height: 1.2;
+        white-space: nowrap; /* keeps it one line */
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      p {
+        font-size: 1.2rem;
+        color: white;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 10px #fff, 0 0 20px #ffb6c1;
+        }
+        to {
+          text-shadow: 0 0 20px #a1c4fd, 0 0 40px #c2e9fb;
+        }
+      }
+
+      /* Balloons */
+      .balloon {
+        position: absolute;
+        bottom: -120px;
+        width: 70px;
+        height: 90px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1;
+        transition: transform 0.3s ease;
+        opacity: 0.85;
+        animation-timing-function: linear; /* Changed from ease-in-out for smoother linear float */
+      }
+
+      .balloon::after {
+        content: "";
+        position: absolute;
+        bottom: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(100vh) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-120vh) scale(1.05);
+          opacity: 0.9;
+        }
+      }
+
+      /* Popup */
+      .popup {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2.5rem;
+        color: #fff;
+        text-shadow: 0 0 10px #000;
+        display: none;
+        animation: fadeOut 2s forwards;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.4);
+        padding: 15px 25px;
+        border-radius: 20px;
+      }
+
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -60%);
+        }
+      }
+
+      /* Signature */
+      .signature {
+        position: absolute;
+        bottom: 15px;
+        right: 20px;
+        font-size: 1rem;
+        color: white;
+        opacity: 0.8;
+        font-style: italic;
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Responsive text for mobile */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 1.8rem;
+          white-space: nowrap;
+        }
+        p {
+          font-size: 1rem;
+        }
+        .balloon {
+          width: 50px;
+          height: 70px;
+        }
+        .popup {
+          font-size: 1.8rem;
+        }
+        .signature {
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="main-text">
+      <h1>🎉 THANK YOU FOR YOUR BEST WISHES 🎂</h1>
+      <p>Your blessings made my birthday extra special! ❤️</p>
+    </div>
+
+    <div class="popup" id="popup">🎈 THANK YOU! 🎈</div>
+
+    <div class="signature">— By Madhav</div>
+
+    <script>
+      const popup = document.getElementById("popup");
+      const colors = [
+        "radial-gradient(circle at 30% 30%, #ffd1dc, #fcbad3)", // pastel pink
+        "radial-gradient(circle at 30% 30%, #a1c4fd, #c2e9fb)", // soft blue
+        "radial-gradient(circle at 30% 30%, #ffecd2, #fcb69f)", // peach
+        "radial-gradient(circle at 30% 30%, #cfd9df, #e2ebf0)", // silver white
+        "radial-gradient(circle at 30% 30%, #f6d365, #fda085)", // light orange
+        "radial-gradient(circle at 30% 30%, #84fab0, #8fd3f4)", // mint aqua
+      ];
+
+      function createBalloon() {
+        const balloon = document.createElement("div");
+        balloon.classList.add("balloon");
+        balloon.style.left = Math.random() * 90 + "%";
+        balloon.style.background =
+          colors[Math.floor(Math.random() * colors.length)];
+
+        const duration = 8 + Math.random() * 8; // 8 to 16 seconds
+        const delay = Math.random() * 2; // 0 to 2 seconds random delay
+
+        // Apply duration and a random starting delay
+        balloon.style.animation = `floatUp ${duration}s ${delay}s linear forwards`;
+
+        // Balloon click event
+        balloon.addEventListener("click", () => {
+          balloon.remove();
+          popup.style.display = "block";
+          // Start the fadeOut animation by adding the class if you had one,
+          // but since it's defined in CSS, just hiding after the animation time works
+          setTimeout(() => {
+            popup.style.display = "none";
+          }, 1500); // Popup display time
+        });
+
+        document.body.appendChild(balloon);
+
+        // Remove after animation (duration + delay) to avoid clutter
+        setTimeout(() => {
+          balloon.remove();
+        }, (duration + delay) * 1000);
+      }
+
+      // Generate balloons periodically
+      setInterval(createBalloon, 800);
+
+      // 🎈 Generate balloons INSTANTLY on load (Removed the setTimeout)
+      for (let i = 0; i < 15; i++) {
+        createBalloon();
+      }
+    </script>
+  </body>
+</html>
