@@ -15,11 +15,12 @@
       body {
         height: 100vh;
         overflow: hidden;
+        /* NEW COLOR: Purple/Teal Gradient */
         background: linear-gradient(
           135deg,
-          #fbc2eb,
-          #a6c1ee
-        ); /* 🌈 smooth pastel gradient */
+          #8a2387,
+          /* Deep Purple */ #00bf72 /* Vibrant Teal/Aqua Marine */
+        );
         font-family: "Poppins", sans-serif;
         display: flex;
         justify-content: center;
@@ -46,25 +47,28 @@
       h1 {
         font-size: 3rem;
         text-transform: uppercase;
+        /* Updated glow to match new theme colors */
         animation: glow 2s infinite alternate;
         margin-bottom: 10px;
         line-height: 1.2;
-        white-space: nowrap; /* keeps it one line */
-        overflow: hidden;
-        text-overflow: ellipsis;
+        /* Ensures text can wrap on small screens */
+        white-space: normal;
       }
 
       p {
         font-size: 1.2rem;
         color: white;
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
       }
 
       @keyframes glow {
         from {
-          text-shadow: 0 0 10px #fff, 0 0 20px #ffb6c1;
+          /* White glow with a hint of Teal */
+          text-shadow: 0 0 10px #fff, 0 0 20px #00e08f;
         }
         to {
-          text-shadow: 0 0 20px #a1c4fd, 0 0 40px #c2e9fb;
+          /* White glow with a hint of Purple */
+          text-shadow: 0 0 20px #9d4edd, 0 0 40px #fff;
         }
       }
 
@@ -79,7 +83,7 @@
         z-index: 1;
         transition: transform 0.3s ease;
         opacity: 0.85;
-        animation-timing-function: linear; /* Changed from ease-in-out for smoother linear float */
+        animation-timing-function: linear;
       }
 
       .balloon::after {
@@ -143,24 +147,33 @@
         text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
       }
 
-      /* Responsive text for mobile */
+      /* MOBILE OPTIMIZATIONS */
       @media (max-width: 768px) {
         h1 {
-          font-size: 1.8rem;
-          white-space: nowrap;
+          font-size: 2.2rem;
+          line-height: 1.1;
         }
+
+        @media (max-width: 400px) {
+          h1 {
+            font-size: 1.8rem;
+          }
+        }
+
         p {
-          font-size: 1rem;
+          font-size: 1.1rem;
         }
         .balloon {
-          width: 50px;
-          height: 70px;
+          width: 55px;
+          height: 75px;
         }
         .popup {
-          font-size: 1.8rem;
+          font-size: 2rem;
         }
         .signature {
-          font-size: 0.8rem;
+          font-size: 0.9rem;
+          bottom: 10px;
+          right: 10px;
         }
       }
     </style>
@@ -168,7 +181,10 @@
 
   <body>
     <div class="main-text">
-      <h1>🎉 THANK YOU FOR YOUR BEST WISHES 🎂</h1>
+      <h1>
+        🎉 THANK YOU FOR <br />
+        YOUR BEST WISHES 🎂
+      </h1>
       <p>Your blessings made my birthday extra special! ❤️</p>
     </div>
 
@@ -204,8 +220,6 @@
         balloon.addEventListener("click", () => {
           balloon.remove();
           popup.style.display = "block";
-          // Start the fadeOut animation by adding the class if you had one,
-          // but since it's defined in CSS, just hiding after the animation time works
           setTimeout(() => {
             popup.style.display = "none";
           }, 1500); // Popup display time
@@ -222,7 +236,7 @@
       // Generate balloons periodically
       setInterval(createBalloon, 800);
 
-      // 🎈 Generate balloons INSTANTLY on load (Removed the setTimeout)
+      // 🎈 Generate balloons INSTANTLY on load
       for (let i = 0; i < 15; i++) {
         createBalloon();
       }
