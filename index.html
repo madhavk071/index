@@ -51,12 +51,13 @@
         margin-bottom: 10px;
         line-height: 1.2;
         white-space: normal;
-        display: block; /* Ensure H1 takes full width for text-align to work */
+        display: block;
       }
 
       h1 .emoji-line {
-        display: block; /* Make emojis appear on their own lines */
-        margin: 0.2em 0; /* Some space above/below emojis */
+        display: block; /* Forces the emojis onto their own lines */
+        margin: 0.2em 0; 
+        font-size: 1.2em; /* Makes the emojis slightly bigger */
       }
 
       p {
@@ -110,12 +111,12 @@
         }
       }
 
-      /* Popup - MODIFIED FOR BOTTOM POSITION */
+      /* Popup is positioned at the bottom */
       .popup {
         position: absolute;
-        top: 85%; /* Anchor point closer to the bottom */
+        top: 85%; 
         left: 50%;
-        transform: translate(-50%, -50%); /* Keeps it horizontally centered */
+        transform: translate(-50%, -50%);
         font-size: 2.5rem;
         color: #fff;
         text-shadow: 0 0 10px #000;
@@ -127,14 +128,13 @@
         border-radius: 20px;
       }
 
-      /* Keyframes - Modified for smoother fade-out from the bottom */
       @keyframes fadeOut {
         0% {
           opacity: 1;
         }
         100% {
           opacity: 0;
-          transform: translate(-50%, -30%); /* Fades up slightly from its bottom position */
+          transform: translate(-50%, -30%); 
         }
       }
 
