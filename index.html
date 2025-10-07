@@ -185,19 +185,18 @@
           width: 95%;
         }
         h1 {
-          /* MODIFIED: Reduced size to force one line on tablets/larger phones */
-          font-size: 1.8rem;
+          /* MODIFIED: Increased font size back to 2rem and removed white-space: nowrap */
+          font-size: 2rem;
           line-height: 1.2;
-          /* NEW: Ensure it attempts to stay on one line */
-          white-space: nowrap;
+          white-space: normal; /* Allow wrapping */
         }
 
         /* Small mobile screens */
         @media (max-width: 400px) {
           h1 {
-            /* MODIFIED: Aggressive font size reduction to force one line on small screens */
-            font-size: 1.4rem;
-            white-space: nowrap;
+            /* MODIFIED: Increased font size back to 1.6rem and removed white-space: nowrap */
+            font-size: 1.6rem;
+            white-space: normal; /* Allow wrapping */
           }
         }
 
